@@ -1,0 +1,23 @@
+.all-dropZones {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.all-dropZones > div {
+    width: 50vw;
+  height: 50vh;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+}
+
+.home-root > video {
+    position: absolute;
+    bottom: 0px;
+    left:0px;
+}
+
+/* #p1 {
+    position: absolute;
+    bottom: 0px;
+    left:0px; 
+} */
