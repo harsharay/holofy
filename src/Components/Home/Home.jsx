@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import DropZone from "../DropZone/DropZone";
 import ReactPlayer from 'react-player';
 import myVideo from "./test.mp4";
@@ -8,9 +8,48 @@ import "./Home.css"
 const Home = () => {
 
     const [count, setCount] = useState([1,2,3,4])
+    const [pageLoaded, setPageLoaded] = useState(false)
+
+    // useEffect(() => {
+    //     setPageLoaded(true)
+    // },[])
+
+    // useEffect(() => {
+    //     if(pageLoaded) {
+    //         const vid = document.querySelector('#p1');
+
+    //         vid.addEventListener('touchmove', function(e){
+    //             e.dataTransfer.setData('text', e.target.id);
+    //         })
+    //     }
+    // }, [pageLoaded])
+    // // vid.addEventListener('touchMove', function(e){
+    // //     e.dataTransfer.setData('text', e.target.id);
+        
+    // //     vid.pause();
+    // // })
+    useEffect(() => {
+        // find the element that you want to drag.
+        const vid = document.getElementById('p1');
+        
+        /* listen to the touchmove event,
+        every time it fires, grab the location
+        of touch and assign it to box */
+        
+        vid.addEventListener('touchmove', function(e) {
+          let touchLocation = e.targetTouches[0];
+          
+          vid.style.left = touchLocation.pageX + 'px';
+          vid.style.top = touchLocation.pageY + 'px';
+        })
+        
+      },[])
 
     const handleDrag = e => {
         e.dataTransfer.setData('text', e.target.id);
+
+        const vid = document.querySelector('#p1');
+        vid.pause();
     }
 
     return (
@@ -23,15 +62,9 @@ const Home = () => {
                 })}
                 
             </div>
-            {/* <p id="p1" draggable={true} onDragStart={handleDrag} >ITEM to drag</p> */}
-            {/* <ReactPlayer id="p1" draggable={true} onDragStart={handleDrag} url='https://www.youtube.com/watch?v=ysz5S6PUM-U' controls={true} width="200" height="300"/> */}
-            {/* <video width="200" height="300" autoPlay loop muted controls>
-                <source src={myVideo} type="video/mp4" />
-            </video> */}
             <video controls loop muted width="200" height="150" id="p1" draggable={true} onDragStart={handleDrag}>
                 <source src={myVideo} type="video/mp4" />
             </video>
-            {/* <iframe title="video_1" width="200" height="300" src="https://www.youtube.com/embed/tgbNymZ7vqY" id="p1" draggable={true}></iframe> */}
         </div>
     )
 }
